@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- 设置项style -->
+    <declare-styleable name="settingItem">
+        <attr name="settingName" format="string"/>
+        <attr name="settingType">
+            <enum name="arrow" value="0"/>
+            <enum name="toggle" value="1"/>
+            <enum name="text" value="2"/>
+        </attr>
+        <attr name="settingToggleCheck">
+            <enum name="close" value="0"/>
+            <enum name="open" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TimeLineMarker">
+        <!--圆点大小-->
+        <attr name="markerSize" format="dimension" />
+        <!--圆点颜色或者图片-->
+        <attr name="marker" format="color|reference" />
+        <!--上面线段颜色或者图片-->
+        <attr name="beginLine" format="color|reference" />
+        <!--下面线段颜色或者图片-->
+        <attr name="endLine" format="color|reference" />
+        <!--线段粗细-->
+        <attr name="lineSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="WaveSideBarView">
+        <attr name="sidebarTextColor" format="color|reference"/>
+        <attr name="sidebarBackgroundColor" format="color|reference"/>
+        <attr name="sidebarChooseTextColor" format="color|reference"/>
+        <attr name="sidebarTextSize" format="dimension"/>
+        <attr name="sidebarLargeTextSize" format="dimension"/>
+        <attr name="sidebarRadius" format="dimension"/>
+        <attr name="sidebarBallRadius" format="dimension"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#3F51B5</color>
+    <color name="color_primary_dark">#303F9F</color>
+    <color name="color_accent">#FF4081</color>
+
+    <color name="gray">@android:color/darker_gray</color>
+    <color name="gray_bg">#44B6B6B6</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!--页面背景的颜色-->
+    <color name="colorPageBg">#f2f4f5</color>
+    <color name="colorWhite">#ffffffff</color>
+    <!--item的分割线-->
+    <color name="colorLineItem">#FFDDDDDD</color>
+    <!--tab标签栏文字的颜色-->
+    <color name="colorTabText">#585858</color>
+</resources>

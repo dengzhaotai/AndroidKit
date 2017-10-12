@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/setting_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_margin_15"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16SP"/>
+
+    <LinearLayout
+        android:id="@+id/setting_value_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/padding_margin_15"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/setting_item_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_margin_15"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14SP"/>
+
+        <ImageView
+            android:id="@+id/setting_item_crow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/arrow_right"
+            android:contentDescription="@string/app_name"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <ToggleButton
+        android:id="@+id/setting_item_toggle"
+        android:layout_width="@dimen/setting_toggle_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding_margin_15"
+        android:background="@null"
+        android:button="@drawable/selector_setting_toggle"
+        android:clickable="false"
+        android:textOff=""
+        android:textOn=""/>
+
+</merge>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_head_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:drawableLeft="@drawable/selector_return_btn"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_16SP"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/iv_head_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/app_name"
+        android:padding="10dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_head_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_18SP"/>
+
+    <TextView
+        android:id="@+id/tv_head_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:paddingRight="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_16SP"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/iv_head_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/app_name"
+        android:paddingRight="5dp"
+        android:visibility="gone"/>
+
+</merge>
