@@ -11,6 +11,10 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dzt.androidkit.R;
 import com.dzt.androidkit.widgets.TimeLineMarkerView;
 
 /**
@@ -52,7 +56,7 @@ public class RecyclerHolder extends RecyclerView.ViewHolder {
 	}
 
 	public RecyclerHolder setOnCheckedChangeListener(int viewId,
-													 CompoundButton.OnCheckedChangeListener listener){
+													 CompoundButton.OnCheckedChangeListener listener) {
 		CompoundButton view = findView(viewId);
 		view.setOnCheckedChangeListener(listener);
 		return this;
@@ -91,11 +95,30 @@ public class RecyclerHolder extends RecyclerView.ViewHolder {
 	public RecyclerHolder setImageGlide(int viewId, String url) {
 		ImageView image = findView(viewId);
 		//使用你所用的网络框架等
-//		Glide.with(context).load(url)
-//				.placeholder(R.mipmap.ic_launcher)
-//				.crossFade()
-//				.error(R.drawable.pic_loading)
-//				.into(image);
+		Glide.with(context).load(url).
+				diskCacheStrategy(DiskCacheStrategy.RESULT).
+				thumbnail(0.5f).
+				priority(Priority.HIGH).
+				placeholder(R.mipmap.ic_launcher).
+				fallback(R.mipmap.ic_launcher).
+				crossFade().
+				error(R.drawable.pic_loading).
+				into(image);
+		return this;
+	}
+
+	public RecyclerHolder setImageGlide(int viewId, int resId) {
+		ImageView image = findView(viewId);
+		//使用你所用的网络框架等
+		Glide.with(context).load(resId).
+				diskCacheStrategy(DiskCacheStrategy.RESULT).
+				thumbnail(0.5f).
+				priority(Priority.HIGH).
+				placeholder(R.mipmap.ic_launcher).
+				fallback(R.mipmap.ic_launcher).
+				crossFade().
+				error(R.drawable.pic_loading).
+				into(image);
 		return this;
 	}
 
