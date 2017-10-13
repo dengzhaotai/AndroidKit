@@ -30,7 +30,7 @@ public abstract class FrameActivity<SV extends ViewDataBinding> extends SuperAct
 	protected SV bindingView;
 	private LinearLayout llProgressBar;
 	private View refresh;
-	private ActivityFrameBinding baseBinding;
+	protected ActivityFrameBinding baseBinding;
 	private AnimationDrawable animationDrawable;
 
 	protected <T extends View> T getView(int id) {

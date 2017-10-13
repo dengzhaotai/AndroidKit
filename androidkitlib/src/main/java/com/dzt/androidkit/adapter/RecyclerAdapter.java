@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.dzt.androidkit.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,5 +1,6 @@
 package com.dzt.kit;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,8 @@ import java.util.List;
 
 public class MainActivity extends FrameActivity<ActivityMainBinding> {
 
-	private List<ModelMainItem> mData;
+	private List<ModelMainItem> mData = new ArrayList<>();
+	private RecyclerViewMainAdapter mainAdapter;
 	private int mColumnCount = 3;
 
 	@Override
@@ -29,27 +31,28 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 	protected void initWidgets() {
 		showContentView();
 		setTitle("工具类Demo");
+		//隐藏左边返回按钮
+		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 		if (mColumnCount <= 1) {
 			bindingView.recyclerView.setLayoutManager(new LinearLayoutManager(context));
 		} else {
 			bindingView.recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 		}
 		bindingView.recyclerView.addItemDecoration(new RecyclerViewDividerItem(JImageKit.dp2px(5f)));
-		RecyclerViewMainAdapter recyclerViewMain = new RecyclerViewMainAdapter(context,
+		mainAdapter = new RecyclerViewMainAdapter(context,
 				mData, R.layout.item_recyclerview_main);
-		recyclerViewMain.setOnClickItemListener(new RecyclerViewMainAdapter.OnClickItemListener() {
+		mainAdapter.setOnClickItemListener(new RecyclerViewMainAdapter.OnClickItemListener() {
 			@Override
 			public void onClick(ModelMainItem data) {
 				startActivity(data.getActivity(), null);
 			}
 		});
-		bindingView.recyclerView.setAdapter(recyclerViewMain);
+		bindingView.recyclerView.setAdapter(mainAdapter);
 	}
 
 	@Override
 	protected void initData(Bundle savedInstanceState) {
-		mData = new ArrayList<>();
-		mData.add(new ModelMainItem("RxPhotoTool操作UZrop裁剪图片", R.mipmap.ic_launcher, MainActivity.class));
+		mData.add(new ModelMainItem("用户信息", R.mipmap.ic_launcher, UserInfoActivity.class));
 		mData.add(new ModelMainItem("二维码与条形码的扫描与生成", R.mipmap.ic_launcher, MainActivity.class));
 		mData.add(new ModelMainItem("动态生成码", R.mipmap.ic_launcher, MainActivity.class));
 
@@ -60,10 +63,18 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 		mData.add(new ModelMainItem("RxDataTool操作Demo", R.mipmap.ic_launcher, MainActivity.class));
 		mData.add(new ModelMainItem("设备信息", R.mipmap.ic_launcher, MainActivity.class));
 		mData.add(new ModelMainItem("RxTextTool操作Demo", R.mipmap.ic_launcher, MainActivity.class));
+		if (mainAdapter != null)
+			mainAdapter.notifyDataSetChanged();
 	}
 
 	@Override
 	protected String[] initPermissions() {
-		return new String[0];
+		return new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+				Manifest.permission.WRITE_EXTERNAL_STORAGE,
+				Manifest.permission.ACCESS_FINE_LOCATION,
+				Manifest.permission.ACCESS_COARSE_LOCATION,
+				Manifest.permission.CAMERA,
+				Manifest.permission.CALL_PHONE,
+				Manifest.permission.READ_PHONE_STATE};
 	}
 }
