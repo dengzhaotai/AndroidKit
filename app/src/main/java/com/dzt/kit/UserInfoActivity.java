@@ -61,6 +61,7 @@ public class UserInfoActivity extends FrameActivity<ActivityUserInfoBinding> {
 
 	@Override
 	protected void initWidgets() {
+		JLogKit.getInstance().i("initWidgets");
 		showContentView();
 		setTitle("个人信息");
 		bindingView.ivAvatar.setOnClickListener(new View.OnClickListener() {

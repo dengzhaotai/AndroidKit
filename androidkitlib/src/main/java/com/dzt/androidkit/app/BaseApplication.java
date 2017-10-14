@@ -5,7 +5,6 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.dzt.androidkit.utils.JKit;
-import com.dzt.androidkit.utils.JLogKit;
 
 
 public abstract class BaseApplication extends MultiDexApplication {
@@ -16,7 +15,6 @@ public abstract class BaseApplication extends MultiDexApplication {
 		super.onCreate();
 		applicationContext = this;
 		JKit.getInstance().init(this);
-		JLogKit.getInstance().setTag("kit->");
 	}
 
 	@Override

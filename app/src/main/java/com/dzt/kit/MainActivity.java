@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.dzt.androidkit.activity.FrameActivity;
 import com.dzt.androidkit.adapter.RecyclerViewDividerItem;
 import com.dzt.androidkit.utils.JImageKit;
+import com.dzt.androidkit.utils.JLogKit;
 import com.dzt.kit.adapter.RecyclerViewMainAdapter;
 import com.dzt.kit.databinding.ActivityMainBinding;
 import com.dzt.kit.model.ModelMainItem;
@@ -29,6 +30,7 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 
 	@Override
 	protected void initWidgets() {
+		JLogKit.getInstance().i("initWidgets");
 		showContentView();
 		setTitle("工具类Demo");
 		//隐藏左边返回按钮

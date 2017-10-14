@@ -43,4 +43,77 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
+
+    <!--
+    Android6.0权限管理
+正常权限：
+ACCESS_LOCATION_EXTRA_COMMANDS
+ACCESS_NETWORK_STATE
+ACCESS_NOTIFICATION_POLICY
+ACCESS_WIFI_STATE
+BLUETOOTH
+BLUETOOTH_ADMIN
+BROADCAST_STICKY
+CHANGE_NETWORK_STATE
+CHANGE_WIFI_MULTICAST_STATE
+CHANGE_WIFI_STATE
+DISABLE_KEYGUARD
+EXPAND_STATUS_BAR
+GET_PACKAGE_SIZE
+INSTALL_SHORTCUT
+INTERNET
+KILL_BACKGROUND_PROCESSES
+MODIFY_AUDIO_SETTINGS
+NFC
+READ_SYNC_SETTINGS
+READ_SYNC_STATS
+RECEIVE_BOOT_COMPLETED
+REORDER_TASKS
+REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+REQUEST_INSTALL_PACKAGES
+SET_ALARM
+SET_TIME_ZONE
+SET_WALLPAPER
+SET_WALLPAPER_HINTS
+TRANSMIT_IR
+UNINSTALL_SHORTCUT
+USE_FINGERPRINT
+VIBRATE
+WAKE_LOCK
+WRITE_SYNC_SETTINGS
+
+危险权限
+权限组 	            权限
+CALENDAR（日历) 	    1、READ_CALENDAR
+                    2、WRITE_CALENDAR
+CAMERA（相机） 	    1、CAMERA
+CONTACTS（联系人） 	1、READ_CONTACTS
+                    2、WRITE_CONTACTS
+                    3、GET_ACCOUNTS
+LOCATION（位置） 	1、ACCESS_FINE_LOCATION
+                    2、ACCESS_COARSE_LOCATION
+MICROPHONE（麦克风） 1、RECORD_AUDIO
+PHONE（手机） 	    1、READ_PHONE_STATE
+                    2、CALL_PHONE
+                    3、READ_CALL_LOG
+                    4、WRITE_CALL_LOG
+                    5、ADD_VOICEMAIL
+                    6、USE_SIP
+                    7、PROCESS_OUTGOING_CALLS
+SENSORS（传感器） 	1、BODY_SENSORS
+SMS（短信） 	        1、SEND_SMS
+                    2、RECEIVE_SMS
+                    3、READ_SMS
+                    4、RECEIVE_WAP_PUSH
+                    5、RECEIVE_MMS
+STORAGE（存储卡） 	1、READ_EXTERNAL_STORAGE
+                    2、WRITE_EXTERNAL_STORAGE
+
+检查权限：int ContextCompat.checkSelfPermission(Context, String)
+申请权限：ActivityCompat.requestPermissions(Context, String[], int)
+权限申请回调：onRequestPermissionsResult(int, String[], String[])
+权限解释说明：ActivityCompat.shouldShowRequestPermissionRationale()
+已授权：PackageManager.PERMISSION_GRANTED
+未授权：PackageManager.PERMISSION_DENIED
+    -->
 </manifest>
