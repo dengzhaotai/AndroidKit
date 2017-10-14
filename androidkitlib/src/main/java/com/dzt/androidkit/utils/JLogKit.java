@@ -23,7 +23,6 @@ public class JLogKit {
 	private static Boolean LOG_SWITCH = true; // 日志文件总开关
 	private static Boolean LOG_TO_FILE = false; // 日志写入文件开关
 	private static String LOG_TAG = "TAG"; // 默认的tag
-	private static char LOG_TYPE = 'v';// 输入日志类型，v代表输出所有信息,w则只输出警告...
 	private static int LOG_SAVE_DAYS = 7;// sd卡中日志文件的最多保存天数
 	private static String LOG_FILE_PATH; // 日志文件保存路径
 	private static String LOG_FILE_NAME;// 日志文件保存名称
@@ -48,108 +47,147 @@ public class JLogKit {
 		LOG_TAG = tag;
 	}
 
+	public void setLogSwitch(boolean flag) {
+		LOG_SWITCH = flag;
+	}
+
+	public void setLog2File(boolean flag) {
+		LOG_TO_FILE = flag;
+	}
+
 	/****************************
 	 * Warn
 	 *********************************/
 	public void w(Object msg) {
-		w(LOG_TAG, msg);
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.w(LOG_TAG, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(LOG_TAG, log + "\n");
 	}
 
 	public void w(String tag, Object msg) {
-		w(tag, msg, null);
-	}
-
-	public void w(String tag, Object msg, Throwable tr) {
-		log(tag, msg.toString(), tr, 'w');
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.w(tag, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(tag, log + "\n");
 	}
 
 	/***************************
 	 * Error
 	 ********************************/
 	public void e(Object msg) {
-		e(LOG_TAG, msg);
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.e(LOG_TAG, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(LOG_TAG, log + "\n");
 	}
 
 	public void e(String tag, Object msg) {
-		e(tag, msg, null);
-	}
-
-	public void e(String tag, Object msg, Throwable tr) {
-		log(tag, msg.toString(), tr, 'e');
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.e(tag, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(tag, log + "\n");
 	}
 
 	/***************************
 	 * Debug
 	 ********************************/
 	public void d(Object msg) {
-		d(LOG_TAG, msg);
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.d(LOG_TAG, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(LOG_TAG, log + "\n");
 	}
 
 	public void d(String tag, Object msg) {// 调试信息
-		d(tag, msg, null);
-	}
-
-	public void d(String tag, Object msg, Throwable tr) {
-		log(tag, msg.toString(), tr, 'd');
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.d(tag, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(tag, log + "\n");
 	}
 
 	/****************************
 	 * Info
 	 *********************************/
 	public void i(Object msg) {
-		i(LOG_TAG, msg);
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.i(LOG_TAG, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(LOG_TAG, log + "\n");
 	}
 
 	public void i(String tag, Object msg) {
-		i(tag, msg, null);
-	}
-
-	public void i(String tag, Object msg, Throwable tr) {
-		log(tag, msg.toString(), tr, 'i');
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.i(tag, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(tag, log + "\n");
 	}
 
 	/**************************
 	 * Verbose
 	 ********************************/
 	public void v(Object msg) {
-		v(LOG_TAG, msg);
-	}
-
-	public void v(String tag, Object msg) {
-		v(tag, msg, null);
-	}
-
-	public void v(String tag, Object msg, Throwable tr) {
-		log(tag, msg.toString(), tr, 'v');
-	}
-
-	/**
-	 * 根据tag, msg和等级，输出日志
-	 *
-	 * @param tag
-	 * @param msg
-	 * @param level
-	 */
-	private void log(String tag, String msg, Throwable tr, char level) {
+		String log = null;
 		if (LOG_SWITCH) {
 			StackTraceElement stackTraceElement = Thread.currentThread()
 					.getStackTrace()[3];
-			//TODO 输出的Log文件名与行号不对，待修改
-			String log = getLogInfo(stackTraceElement) + msg;
-			if ('e' == level && ('e' == LOG_TYPE || 'v' == LOG_TYPE)) { // 输出错误信息
-				Log.e(tag, log, tr);
-			} else if ('w' == level && ('w' == LOG_TYPE || 'v' == LOG_TYPE)) {
-				Log.w(tag, log, tr);
-			} else if ('d' == level && ('d' == LOG_TYPE || 'v' == LOG_TYPE)) {
-				Log.d(tag, log, tr);
-			} else if ('i' == level && ('d' == LOG_TYPE || 'v' == LOG_TYPE)) {
-				Log.i(tag, log, tr);
-			} else {
-				Log.v(tag, log, tr);
-			}
-			if (LOG_TO_FILE)
-				log2File(String.valueOf(level), tag, log + tr == null ? "" : "\n" + Log.getStackTraceString(tr));
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.v(LOG_TAG, log);
 		}
+		if (LOG_TO_FILE)
+			log2File(LOG_TAG, log + "\n");
+	}
+
+	public void v(String tag, Object msg) {
+		String log = null;
+		if (LOG_SWITCH) {
+			StackTraceElement stackTraceElement = Thread.currentThread()
+					.getStackTrace()[3];
+			log = getLogInfo(stackTraceElement) + msg;
+			Log.v(tag, log);
+		}
+		if (LOG_TO_FILE)
+			log2File(tag, log + "\n");
 	}
 
 	private String getLogInfo(StackTraceElement stackTraceElement) {
@@ -183,10 +221,10 @@ public class JLogKit {
 	 *
 	 * @return
 	 **/
-	private synchronized void log2File(String mylogtype, String tag, String text) {
+	private synchronized void log2File(String tag, String text) {
 		Date nowTime = new Date();
 		String date = FILE_SUFFIX.format(nowTime);
-		String dateLogContent = LOG_FORMAT.format(nowTime) + ":" + mylogtype + ":" + tag + ":" + text; // 日志输出格式
+		String dateLogContent = LOG_FORMAT.format(nowTime) + ":" + tag + ":" + text; // 日志输出格式
 		File destDir = new File(LOG_FILE_PATH);
 		if (!destDir.exists()) {
 			destDir.mkdirs();
