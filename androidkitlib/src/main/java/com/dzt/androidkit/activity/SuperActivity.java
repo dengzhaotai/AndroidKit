@@ -3,6 +3,7 @@ package com.dzt.androidkit.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -34,12 +35,15 @@ public abstract class SuperActivity extends AppCompatActivity {
 		context = this;
 		sharedPreferences = JPreferenceKit.getInstance();
 		ActivityStackManager.getInstance().pushActivity(this);
-
 		permissions = initPermissions();
-		if (checkPermissionIsGranted()) {
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+			if (checkPermissionIsGranted()) {
+				initData(savedInstanceState);
+			} else {
+				ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSION_CODE);
+			}
+		}else{
 			initData(savedInstanceState);
-		} else {
-			ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSION_CODE);
 		}
 		EventBusUtil.register(this);
 	}
