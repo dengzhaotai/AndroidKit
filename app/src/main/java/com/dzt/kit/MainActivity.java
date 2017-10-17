@@ -2,26 +2,21 @@ package com.dzt.kit;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.dzt.androidkit.activity.FrameActivity;
-import com.dzt.androidkit.adapter.RecyclerViewDividerItem;
-import com.dzt.androidkit.utils.JImageKit;
+import com.dzt.androidkit.utils.JActivityKit;
 import com.dzt.androidkit.utils.JLogKit;
-import com.dzt.kit.adapter.RecyclerViewMainAdapter;
 import com.dzt.kit.databinding.ActivityMainBinding;
-import com.dzt.kit.model.ModelMainItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.dzt.kit.fragment.DrawerMenuFragment;
+import com.dzt.kit.fragment.MainFragment;
 
 
 public class MainActivity extends FrameActivity<ActivityMainBinding> {
-
-	private List<ModelMainItem> mData = new ArrayList<>();
-	private RecyclerViewMainAdapter mainAdapter;
-	private int mColumnCount = 3;
 
 	@Override
 	protected int getLayoutId() {
@@ -32,41 +27,37 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 	protected void initWidgets() {
 		JLogKit.getInstance().i("initWidgets");
 		showContentView();
-		setTitle("工具类Demo");
-		//隐藏左边返回按钮
-		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-		if (mColumnCount <= 1) {
-			bindingView.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-		} else {
-			bindingView.recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+		baseBinding.toolBar.setVisibility(View.GONE);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+		setSupportActionBar(toolbar);
+		ActionBar actionBar = getSupportActionBar();
+		if (actionBar != null) {
+			//去除默认Title显示
+			actionBar.setDisplayShowTitleEnabled(false);
+			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
-		bindingView.recyclerView.addItemDecoration(new RecyclerViewDividerItem(JImageKit.dp2px(5f)));
-		mainAdapter = new RecyclerViewMainAdapter(context,
-				mData, R.layout.item_recyclerview_main);
-		mainAdapter.setOnClickItemListener(new RecyclerViewMainAdapter.OnClickItemListener() {
-			@Override
-			public void onClick(ModelMainItem data) {
-				startActivity(data.getActivity(), null);
-			}
-		});
-		bindingView.recyclerView.setAdapter(mainAdapter);
+		toolbar.setTitle("工具类Demo");
+		//隐藏左边返回按钮
+		//getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+				this, bindingView.drawerLayout, toolbar,
+				R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		bindingView.drawerLayout.addDrawerListener(toggle);
+		toggle.syncState();
+		MainFragment mainFragment = new MainFragment();
+		JActivityKit.addFragmentToActivity(getSupportFragmentManager(),
+				mainFragment, R.id.fragment_container);
+
+		DrawerMenuFragment menuFragment = new DrawerMenuFragment();
+		JActivityKit.addFragmentToActivity(getSupportFragmentManager(),
+				menuFragment, R.id.fragment_container_menu);
 	}
 
 	@Override
 	protected void initData(Bundle savedInstanceState) {
-		mData.add(new ModelMainItem("用户信息", R.mipmap.ic_launcher, UserInfoActivity.class));
-		mData.add(new ModelMainItem("二维码与条形码的扫描与生成", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("动态生成码", R.mipmap.ic_launcher, MainActivity.class));
 
-		mData.add(new ModelMainItem("WebView的封装可播放视频", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("常用的Dialog展示", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("图片的缩放艺术", R.mipmap.ic_launcher, MainActivity.class));
-
-		mData.add(new ModelMainItem("RxDataTool操作Demo", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("设备信息", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("RxTextTool操作Demo", R.mipmap.ic_launcher, MainActivity.class));
-		if (mainAdapter != null)
-			mainAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -78,5 +69,15 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 				Manifest.permission.CAMERA,
 				Manifest.permission.CALL_PHONE,
 				Manifest.permission.READ_PHONE_STATE};
+	}
+
+	@Override
+	public void onBackPressed() {
+		assert bindingView.drawerLayout != null;
+		if (bindingView.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+			bindingView.drawerLayout.closeDrawer(GravityCompat.START);
+		} else {
+			super.onBackPressed();
+		}
 	}
 }

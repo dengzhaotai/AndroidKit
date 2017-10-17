@@ -9,7 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dzt.androidkit.eventbus.Event;
+import com.dzt.androidkit.eventbus.BaseEvent;
 import com.dzt.androidkit.eventbus.EventBusUtil;
 import com.dzt.androidkit.utils.ActivityStackManager;
 import com.dzt.androidkit.utils.JPreferenceKit;
@@ -50,10 +50,9 @@ public abstract class SuperActivity extends AppCompatActivity {
 
 	/**
 	 * 接收消息函数在主线程，且为粘性事件
-	 * From FramgmentOne
 	 */
 	@Subscribe(threadMode = ThreadMode.MAIN)
-	public void onEvent(Event response) {
+	public void onEvent(BaseEvent response) {
 
 	}
 

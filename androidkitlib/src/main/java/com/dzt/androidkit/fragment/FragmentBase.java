@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.dzt.androidkit.R;
-import com.dzt.androidkit.eventbus.Event;
+import com.dzt.androidkit.eventbus.BaseEvent;
 import com.dzt.androidkit.eventbus.EventBusUtil;
 import com.dzt.androidkit.interfaces.PerfectClickListener;
 import com.dzt.androidkit.utils.JLogKit;
@@ -56,7 +56,7 @@ public abstract class FragmentBase<SV extends ViewDataBinding> extends Fragment 
 	private AnimationDrawable mAnimationDrawable;
 
 	protected <T extends View> T getView(int id) {
-		return (T) getView().findViewById(id);
+		return (T) mContainer.findViewById(id);
 	}
 
 	@Override
@@ -79,54 +79,7 @@ public abstract class FragmentBase<SV extends ViewDataBinding> extends Fragment 
 		bindingView.getRoot().setLayoutParams(params);
 		mContainer = view.findViewById(R.id.container);
 		mContainer.addView(bindingView.getRoot());
-		initWidgets();
-		isPrepared = true;
-		lazyLoad();
-		EventBusUtil.register(this);
-		return view;
-	}
 
-	/**
-	 * 如果是与ViewPager一起使用，调用的是setUserVisibleHint
-	 *
-	 * @param isVisibleToUser 是否显示出来了
-	 */
-	@Override
-	public void setUserVisibleHint(boolean isVisibleToUser) {
-		super.setUserVisibleHint(isVisibleToUser);
-		if (getUserVisibleHint()) {
-			isVisible = true;
-			onVisible();
-		} else {
-			isVisible = false;
-			onInvisible();
-		}
-	}
-
-	/**
-	 * 如果是通过FragmentTransaction的show和hide的方法来控制显示，调用的是onHiddenChanged.
-	 * 若是初始就show的Fragment 为了触发该事件 需要先hide再show
-	 *
-	 * @param hidden hidden True if the fragment is now hidden, false if it is not
-	 *               visible.
-	 */
-	@Override
-	public void onHiddenChanged(boolean hidden) {
-		super.onHiddenChanged(hidden);
-		if (!hidden) {
-			isVisible = true;
-			onVisible();
-		} else {
-			isVisible = false;
-			onInvisible();
-		}
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		JLogKit.getInstance().e("onActivityCreated");
-		context = getActivity();
 		mLlProgressBar = getView(R.id.ll_progress_bar);
 		ImageView img = getView(R.id.img_progress);
 
@@ -146,6 +99,49 @@ public abstract class FragmentBase<SV extends ViewDataBinding> extends Fragment 
 			}
 		});
 		bindingView.getRoot().setVisibility(View.GONE);
+		initWidgets();
+		isPrepared = true;
+		lazyLoad();
+		EventBusUtil.register(this);
+		return view;
+	}
+
+	/**
+	 * 如果是与ViewPager一起使用，调用的是setUserVisibleHint
+	 *
+	 * @param isVisibleToUser 是否显示出来了
+	 */
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		JLogKit.getInstance().e("setUserVisibleHint isVisibleToUser = " + getUserVisibleHint());
+		if (getUserVisibleHint()) {
+			isVisible = true;
+			onVisible();
+		} else {
+			isVisible = false;
+			onInvisible();
+		}
+	}
+
+	/**
+	 * 如果是通过FragmentTransaction的show和hide的方法来控制显示，调用的是onHiddenChanged.
+	 * 若是初始就show的Fragment 为了触发该事件 需要先hide再show
+	 *
+	 * @param hidden hidden True if the fragment is now hidden, false if it is not
+	 *               visible.
+	 */
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		JLogKit.getInstance().e("onHiddenChanged hidden = " + hidden);
+		if (!hidden) {
+			isVisible = true;
+			onVisible();
+		} else {
+			isVisible = false;
+			onInvisible();
+		}
 	}
 
 	protected void onVisible() {
@@ -154,6 +150,7 @@ public abstract class FragmentBase<SV extends ViewDataBinding> extends Fragment 
 
 	protected void onInvisible() {
 	}
+
 	/**
 	 * 布局
 	 */
@@ -228,20 +225,26 @@ public abstract class FragmentBase<SV extends ViewDataBinding> extends Fragment 
 	 * isPrepared = true;
 	 */
 	protected void lazyLoad() {
-		if (!isPrepared || !isVisible || !isFirstLoad) {
+		JLogKit.getInstance().i("lazyLoad isPrepared = " + isPrepared
+				+ " isVisible = " + isVisible
+				+ " isFirstLoad = " + isFirstLoad);
+		//if (!isPrepared || !isVisible || !isFirstLoad) {
+		if (!isPrepared || !isFirstLoad) {
 			return;
 		}
 		isFirstLoad = false;
 		initData();
 	}
+
 	protected abstract void initWidgets();
+
 	protected abstract void initData();
 
 	/**
 	 * 接收消息函数在主线程
 	 */
 	@Subscribe(threadMode = ThreadMode.MAIN)
-	public void onEvent(Event response) {
+	public void onEvent(BaseEvent response) {
 
 	}
 

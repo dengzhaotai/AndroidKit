@@ -5,6 +5,13 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
+import com.dzt.androidkit.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Created by dzt on 2017/9/18.
  * 加载App资源，使用单例
@@ -65,5 +72,33 @@ public class AppResourceKit {
 
 	public String[] getStringArray(int rid) {
 		return mRes == null ? null : mRes.getStringArray(rid);
+	}
+
+	private static final String DATABASE_NAME = "city.db";
+	public void importCityDb(){
+		// 判断保持城市的数据库文件是否存在
+		File file = new File(context.getDatabasePath(DATABASE_NAME).getAbsolutePath());
+		if (!file.exists()) {// 如果不存在，则导入数据库文件
+			//数据库文件
+			File dbFile = context.getDatabasePath(DATABASE_NAME);
+			try {
+				if (!dbFile.getParentFile().exists()) {
+					dbFile.getParentFile().mkdir();
+				}
+				if (!dbFile.exists()) {
+					dbFile.createNewFile();
+				}
+				//加载欲导入的数据库
+				InputStream is = context.getResources().openRawResource(R.raw.city);
+				FileOutputStream fos = new FileOutputStream(dbFile);
+				byte[] buffer = new byte[is.available()];
+				is.read(buffer);
+				fos.write(buffer);
+				is.close();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

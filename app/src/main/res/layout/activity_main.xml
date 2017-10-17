@@ -4,18 +4,24 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/activity_main"
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <include
+            layout="@layout/layout_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"/>
+
+        <FrameLayout
+            android:id="@+id/fragment_container_menu"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
+    </android.support.v4.widget.DrawerLayout>
+
 </layout>
 
