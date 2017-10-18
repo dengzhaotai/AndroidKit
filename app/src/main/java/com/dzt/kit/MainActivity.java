@@ -14,9 +14,12 @@ import com.dzt.androidkit.utils.JLogKit;
 import com.dzt.kit.databinding.ActivityMainBinding;
 import com.dzt.kit.fragment.DrawerMenuFragment;
 import com.dzt.kit.fragment.MainFragment;
+import com.dzt.kit.presenter.DrawerMenuPresenter;
 
 
 public class MainActivity extends FrameActivity<ActivityMainBinding> {
+
+	DrawerMenuPresenter menuPresenter;
 
 	@Override
 	protected int getLayoutId() {
@@ -53,6 +56,8 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 		DrawerMenuFragment menuFragment = new DrawerMenuFragment();
 		JActivityKit.addFragmentToActivity(getSupportFragmentManager(),
 				menuFragment, R.id.fragment_container_menu);
+
+		menuPresenter = new DrawerMenuPresenter(context, menuFragment);
 	}
 
 	@Override
