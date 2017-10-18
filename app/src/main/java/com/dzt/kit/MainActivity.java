@@ -15,11 +15,13 @@ import com.dzt.kit.databinding.ActivityMainBinding;
 import com.dzt.kit.fragment.DrawerMenuFragment;
 import com.dzt.kit.fragment.MainFragment;
 import com.dzt.kit.presenter.DrawerMenuPresenter;
+import com.dzt.kit.presenter.MainPresenter;
 
 
 public class MainActivity extends FrameActivity<ActivityMainBinding> {
 
-	DrawerMenuPresenter menuPresenter;
+	private DrawerMenuPresenter menuPresenter;
+	private MainPresenter mainPresenter;
 
 	@Override
 	protected int getLayoutId() {
@@ -58,6 +60,7 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 				menuFragment, R.id.fragment_container_menu);
 
 		menuPresenter = new DrawerMenuPresenter(context, menuFragment);
+		mainPresenter = new MainPresenter(context, mainFragment);
 	}
 
 	@Override

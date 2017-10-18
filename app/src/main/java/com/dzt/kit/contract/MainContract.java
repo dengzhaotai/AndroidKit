@@ -2,7 +2,6 @@ package com.dzt.kit.contract;
 
 import com.dzt.androidkit.mvp.BasePresenter;
 import com.dzt.androidkit.mvp.BaseView;
-import com.dzt.kit.model.MenuItem;
 import com.dzt.kit.model.ModelMainItem;
 
 import java.util.List;
@@ -11,13 +10,13 @@ import java.util.List;
  * Created by M02323 on 2017/10/17.
  */
 
-public interface DrawerContract {
+public interface MainContract {
 
-	interface View extends BaseView<Presenter> {
-		void showMenu(List<MenuItem> list);
+	interface View extends BaseView<Presenter>{
+		void showData(List<ModelMainItem> list);
 	}
 
-	interface Presenter extends BasePresenter {
-		void loadMenu();
+	interface Presenter extends BasePresenter{
+		void loadData();
 	}
 }

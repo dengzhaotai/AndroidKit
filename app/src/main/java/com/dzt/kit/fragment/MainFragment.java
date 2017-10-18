@@ -7,10 +7,9 @@ import com.dzt.androidkit.adapter.RecyclerViewDividerItem;
 import com.dzt.androidkit.fragment.FragmentBase;
 import com.dzt.androidkit.utils.JImageKit;
 import com.dzt.androidkit.utils.JLogKit;
-import com.dzt.kit.MainActivity;
 import com.dzt.kit.R;
-import com.dzt.kit.UserInfoActivity;
 import com.dzt.kit.adapter.RecyclerViewMainAdapter;
+import com.dzt.kit.contract.MainContract;
 import com.dzt.kit.databinding.FragmentMainBinding;
 import com.dzt.kit.model.ModelMainItem;
 
@@ -21,7 +20,8 @@ import java.util.List;
  * Created by M02323 on 2017/10/17.
  */
 
-public class MainFragment extends FragmentBase<FragmentMainBinding> {
+public class MainFragment extends FragmentBase<FragmentMainBinding> implements MainContract.View {
+	private MainContract.Presenter presenter;
 	private List<ModelMainItem> mData = new ArrayList<>();
 	private RecyclerViewMainAdapter mainAdapter;
 	private int mColumnCount = 3;
@@ -46,6 +46,7 @@ public class MainFragment extends FragmentBase<FragmentMainBinding> {
 		mainAdapter.setOnClickItemListener(new RecyclerViewMainAdapter.OnClickItemListener() {
 			@Override
 			public void onClick(ModelMainItem data) {
+				JLogKit.getInstance().e("onClick name = " + data.getName());
 				startActivity(data.getActivity(), null);
 			}
 		});
@@ -54,18 +55,18 @@ public class MainFragment extends FragmentBase<FragmentMainBinding> {
 
 	@Override
 	protected void initData() {
-		mData.add(new ModelMainItem("用户信息", R.mipmap.ic_launcher, UserInfoActivity.class));
-		mData.add(new ModelMainItem("二维码与条形码的扫描与生成", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("动态生成码", R.mipmap.ic_launcher, MainActivity.class));
+		presenter.loadData();
+	}
 
-		mData.add(new ModelMainItem("WebView的封装可播放视频", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("常用的Dialog展示", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("图片的缩放艺术", R.mipmap.ic_launcher, MainActivity.class));
+	@Override
+	public void setPresenter(MainContract.Presenter presenter) {
+		this.presenter = presenter;
+	}
 
-		mData.add(new ModelMainItem("RxDataTool操作Demo", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("设备信息", R.mipmap.ic_launcher, MainActivity.class));
-		mData.add(new ModelMainItem("RxTextTool操作Demo", R.mipmap.ic_launcher, MainActivity.class));
-		JLogKit.getInstance().e("initData size = " + mData.size());
+	@Override
+	public void showData(List<ModelMainItem> list) {
+		mData.clear();
+		mData.addAll(list);
 		if (mainAdapter != null)
 			mainAdapter.notifyDataSetChanged();
 	}
