@@ -115,13 +115,18 @@ public abstract class FrameActivity<SV extends ViewDataBinding> extends SuperAct
 		if (actionBar != null) {
 			//去除默认Title显示
 			actionBar.setDisplayShowTitleEnabled(false);
+			//true显示返回按钮,false显示返回按钮
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setHomeAsUpIndicator(R.mipmap.icon_back);
+			//actionBar.setHomeAsUpIndicator(R.mipmap.icon_back);
 		}
+		//设置返回按钮的icon
+		baseBinding.toolBar.setNavigationIcon(R.mipmap.icon_back);
+		//返回按钮的点击事件
 		baseBinding.toolBar.setNavigationOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onBackPressed();
+				//onBackPressed();
+				finish();
 			}
 		});
 	}

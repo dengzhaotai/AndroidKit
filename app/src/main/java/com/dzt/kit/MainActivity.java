@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -42,17 +43,17 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 		toolbar.setTitle("工具类Demo");
-		//隐藏左边返回按钮
-		//getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
 				this, bindingView.drawerLayout, toolbar,
 				R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		bindingView.drawerLayout.addDrawerListener(toggle);
 		toggle.syncState();
+
 		MainFragment mainFragment = new MainFragment();
 		JActivityKit.addFragmentToActivity(getSupportFragmentManager(),
 				mainFragment, R.id.fragment_container);
+		mainPresenter = new MainPresenter(context, mainFragment);
 
 		bindingView.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 			@Override
@@ -75,7 +76,6 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 				return false;
 			}
 		});
-		mainPresenter = new MainPresenter(context, mainFragment);
 	}
 
 	@Override
@@ -92,6 +92,27 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 				Manifest.permission.CAMERA,
 				Manifest.permission.CALL_PHONE,
 				Manifest.permission.READ_PHONE_STATE};
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_search:
+				//tabLayout.setTabMode(TabLayout.MODE_FIXED);
+				showToast("fixed");
+				break;
+			case R.id.action_share:
+				//tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+				showToast("scroll");
+				break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
