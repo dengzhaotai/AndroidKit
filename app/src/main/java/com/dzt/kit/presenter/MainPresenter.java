@@ -3,9 +3,8 @@ package com.dzt.kit.presenter;
 import android.content.Context;
 
 import com.dzt.androidkit.utils.JLogKit;
-import com.dzt.kit.MainActivity;
 import com.dzt.kit.R;
-import com.dzt.kit.UserInfoActivity;
+import com.dzt.kit.activity.UserInfoActivity;
 import com.dzt.kit.contract.MainContract;
 import com.dzt.kit.model.ModelMainItem;
 

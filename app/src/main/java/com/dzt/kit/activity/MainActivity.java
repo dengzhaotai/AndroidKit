@@ -1,4 +1,4 @@
-package com.dzt.kit;
+package com.dzt.kit.activity;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.view.View;
 import com.dzt.androidkit.activity.FrameActivity;
 import com.dzt.androidkit.utils.JActivityKit;
 import com.dzt.androidkit.utils.JLogKit;
+import com.dzt.kit.R;
 import com.dzt.kit.databinding.ActivityMainBinding;
 import com.dzt.kit.fragment.MainFragment;
 import com.dzt.kit.presenter.MainPresenter;
@@ -67,7 +68,7 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 					case R.id.item_pink:
 						break;
 					case R.id.item_about:
-						//startActivity(AboutActivity.class, null);
+						startActivity(AboutActivity.class, null);
 						break;
 					case R.id.item_exit:
 						finish();

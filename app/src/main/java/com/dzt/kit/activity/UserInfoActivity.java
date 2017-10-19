@@ -1,4 +1,4 @@
-package com.dzt.kit;
+package com.dzt.kit.activity;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -24,6 +24,7 @@ import com.dzt.androidkit.utils.JFileKit;
 import com.dzt.androidkit.utils.JLogKit;
 import com.dzt.androidkit.utils.JPhotoKit;
 import com.dzt.androidkit.utils.JPreferenceKit;
+import com.dzt.kit.R;
 import com.dzt.kit.databinding.ActivityUserInfoBinding;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
