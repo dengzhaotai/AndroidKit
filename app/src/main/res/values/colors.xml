@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Material Design主题色 -->
+    <!-- 标题栏颜色 -->
     <color name="colorPrimary">#3F51B5</color>
+    <!-- 状态栏背景色 -->
     <color name="colorPrimaryDark">#303F9F</color>
+    <!-- 控件颜色 -->
     <color name="colorAccent">#FF4081</color>
+    <!-- 标题颜色 -->
+    <color name="textColorPrimary">#090a09</color>
+    <!-- 窗口背景色 -->
+    <color name="windowBackground">#FF4081</color>
+    <!-- 导航栏颜色 -->
+    <color name="navigationBarColor">#FF4081</color>
+    <!-- 状态栏颜色 -->
+    <color name="statusBarColor">#FF4081</color>
 
     <color name="colorBackground">#ffffff</color>
-    <color name="textColorPrimary">#090a09</color>
     <color name="colorControlHighlight">#aabbcc</color>
 
     <color name="white">#FFFFFFFF</color>

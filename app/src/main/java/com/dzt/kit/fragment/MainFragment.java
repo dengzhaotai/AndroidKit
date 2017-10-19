@@ -47,7 +47,11 @@ public class MainFragment extends FragmentBase<FragmentMainBinding> implements M
 			@Override
 			public void onClick(ModelMainItem data) {
 				JLogKit.getInstance().e("onClick name = " + data.getName());
-				startActivity(data.getActivity(), null);
+				if (data.getActivity() == null) {
+					showToast("功能待实现");
+				} else {
+					startActivity(data.getActivity(), null);
+				}
 			}
 		});
 		bindingView.recyclerView.setAdapter(mainAdapter);

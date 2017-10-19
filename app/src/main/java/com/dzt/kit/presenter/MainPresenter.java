@@ -39,16 +39,16 @@ public class MainPresenter implements MainContract.Presenter{
 	public void loadData() {
 		List<ModelMainItem> data = new ArrayList<>();
 		data.add(new ModelMainItem("用户信息", R.mipmap.ic_launcher, UserInfoActivity.class));
-		data.add(new ModelMainItem("二维码与条形码的扫描与生成", R.mipmap.ic_launcher, MainActivity.class));
-		data.add(new ModelMainItem("动态生成码", R.mipmap.ic_launcher, MainActivity.class));
+		data.add(new ModelMainItem("二维码与条形码的扫描与生成", R.mipmap.ic_launcher, null));
+		data.add(new ModelMainItem("动态生成码", R.mipmap.ic_launcher, null));
 
-		data.add(new ModelMainItem("WebView的封装可播放视频", R.mipmap.ic_launcher, MainActivity.class));
-		data.add(new ModelMainItem("常用的Dialog展示", R.mipmap.ic_launcher, MainActivity.class));
-		data.add(new ModelMainItem("图片的缩放艺术", R.mipmap.ic_launcher, MainActivity.class));
+		data.add(new ModelMainItem("WebView的封装可播放视频", R.mipmap.ic_launcher,null));
+		data.add(new ModelMainItem("常用的Dialog展示", R.mipmap.ic_launcher, null));
+		data.add(new ModelMainItem("图片的缩放艺术", R.mipmap.ic_launcher, null));
 
-		data.add(new ModelMainItem("RxDataTool操作Demo", R.mipmap.ic_launcher, MainActivity.class));
-		data.add(new ModelMainItem("设备信息", R.mipmap.ic_launcher, MainActivity.class));
-		data.add(new ModelMainItem("RxTextTool操作Demo", R.mipmap.ic_launcher, MainActivity.class));
+		data.add(new ModelMainItem("RxDataTool操作Demo", R.mipmap.ic_launcher, null));
+		data.add(new ModelMainItem("设备信息", R.mipmap.ic_launcher, null));
+		data.add(new ModelMainItem("RxTextTool操作Demo", R.mipmap.ic_launcher, null));
 		JLogKit.getInstance().e("loadData size = " + data.size());
 		view.showData(data);
 	}

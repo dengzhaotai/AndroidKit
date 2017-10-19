@@ -2,25 +2,24 @@ package com.dzt.kit;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.dzt.androidkit.activity.FrameActivity;
 import com.dzt.androidkit.utils.JActivityKit;
 import com.dzt.androidkit.utils.JLogKit;
 import com.dzt.kit.databinding.ActivityMainBinding;
-import com.dzt.kit.fragment.DrawerMenuFragment;
 import com.dzt.kit.fragment.MainFragment;
-import com.dzt.kit.presenter.DrawerMenuPresenter;
 import com.dzt.kit.presenter.MainPresenter;
 
 
 public class MainActivity extends FrameActivity<ActivityMainBinding> {
 
-	private DrawerMenuPresenter menuPresenter;
 	private MainPresenter mainPresenter;
 
 	@Override
@@ -55,11 +54,27 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 		JActivityKit.addFragmentToActivity(getSupportFragmentManager(),
 				mainFragment, R.id.fragment_container);
 
-		DrawerMenuFragment menuFragment = new DrawerMenuFragment();
-		JActivityKit.addFragmentToActivity(getSupportFragmentManager(),
-				menuFragment, R.id.fragment_container_menu);
-
-		menuPresenter = new DrawerMenuPresenter(context, menuFragment);
+		bindingView.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(MenuItem item) {
+				JLogKit.getInstance().i("onNavigationItemSelected = " + item.getTitle());
+				switch (item.getItemId()){
+					case R.id.item_green:
+						break;
+					case R.id.item_blue:
+						break;
+					case R.id.item_pink:
+						break;
+					case R.id.item_about:
+						//startActivity(AboutActivity.class, null);
+						break;
+					case R.id.item_exit:
+						finish();
+						break;
+				}
+				return false;
+			}
+		});
 		mainPresenter = new MainPresenter(context, mainFragment);
 	}
 
