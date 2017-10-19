@@ -51,7 +51,7 @@ public class UserInfoActivity extends FrameActivity<ActivityUserInfoBinding> {
 	private Uri resultUri;
 	private BasePopupWindow popupWindow;
 	private String current_datetime; // 当前时间
-	private String photoName; // 图片文件名
+	private String photoPath; // 图片存储路径
 	private String photoSavePath; // 图片存储位置
 	private boolean isSelectImg = false;
 
@@ -86,8 +86,16 @@ public class UserInfoActivity extends FrameActivity<ActivityUserInfoBinding> {
 				return false;
 			}
 		});
+		initPath();
 		initPopupWindow();
 		roadImageView(resultUri);
+	}
+
+	private void initPath(){
+		//路径规则：SD卡路径（内部存储）/packageName/no_upload_media/yyyyMMddHHmmss.jpg
+		photoPath = JFileKit.getDiskCacheDir(context) + "/upload_media";
+		// 查询并创建文件夹
+		JFileKit.createFolder(photoPath);
 	}
 
 	private void initPopupWindow() {
@@ -127,14 +135,10 @@ public class UserInfoActivity extends FrameActivity<ActivityUserInfoBinding> {
 		Date currentDate = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINESE);
 		current_datetime = sdf.format(currentDate); // 初始化当前时间值
-//		路径规则：SD卡路径（内部存储）/packageName/no_upload_media/yyyyMMddHHmmss.jpg
-		String path = JFileKit.getDiskCacheDir(context) + "/upload_media";
-		photoName = current_datetime + ".jpg"; // 初始化图片文件名
-		photoSavePath = path + File.separator + photoName; // 初始化文件夹位置
-		JLogKit.getInstance().e("path", photoSavePath);
 
-		// 查询并创建文件夹
-		JFileKit.createFolder(path);
+		String name = current_datetime + ".jpg"; // 初始化图片文件名
+		photoSavePath = photoPath + File.separator + name; // 初始化文件夹位置
+		JLogKit.getInstance().e("path", photoSavePath);
 
 		// 启动相机并拍照
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -195,19 +199,16 @@ public class UserInfoActivity extends FrameActivity<ActivityUserInfoBinding> {
 				into(bindingView.ivAvatar);
 		photoSavePath = JPhotoKit.getImageAbsolutePath(context, uri);
 		JPreferenceKit.getInstance().setStringValue("logo_img", photoSavePath);
-		JLogKit.getInstance().e("path = " + photoSavePath);
 	}
 
 	private void initUCrop(Uri uri) {
 		Date currentDate = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINESE);
 		current_datetime = sdf.format(currentDate); // 初始化当前时间值
-//		路径规则：SD卡路径（内部存储）/packageName/no_upload_media/yyyyMMddHHmmss.jpg
-		String path = JFileKit.getDiskCacheDir(context) + "/upload_media";
-		photoName = current_datetime + ".jpg"; // 初始化图片文件名
-		photoSavePath = path + File.separator + photoName; // 初始化文件夹位置
+		String name = current_datetime + ".jpg"; // 初始化图片文件名
+		photoSavePath = photoPath + File.separator + name; // 初始化文件夹位置
 
-		Uri destinationUri = Uri.fromFile(new File(path, photoName));
+		Uri destinationUri = Uri.fromFile(new File(photoPath, name));
 
 		UCrop.Options options = new UCrop.Options();
 		//设置裁剪图片可操作的手势

@@ -2,11 +2,14 @@ package com.dzt.kit.activity;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,24 +63,33 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 			@Override
 			public boolean onNavigationItemSelected(MenuItem item) {
 				JLogKit.getInstance().i("onNavigationItemSelected = " + item.getTitle());
-				switch (item.getItemId()){
-					case R.id.item_green:
-						break;
-					case R.id.item_blue:
-						break;
-					case R.id.item_pink:
-						break;
-					case R.id.item_about:
-						startActivity(AboutActivity.class, null);
-						break;
-					case R.id.item_exit:
-						finish();
-						break;
-				}
+				handler.sendEmptyMessageDelayed(item.getItemId(), 100);
+				drawerLayoutSwitch(false);
 				return false;
 			}
 		});
 	}
+
+	private Handler handler = new Handler(new Handler.Callback() {
+		@Override
+		public boolean handleMessage(Message message) {
+			switch (message.what){
+				case R.id.item_green:
+					break;
+				case R.id.item_blue:
+					break;
+				case R.id.item_pink:
+					break;
+				case R.id.item_about:
+					startActivity(AboutActivity.class, null);
+					break;
+				case R.id.item_exit:
+					finish();
+					break;
+			}
+			return true;
+		}
+	});
 
 	@Override
 	protected void initData(Bundle savedInstanceState) {
@@ -116,11 +128,19 @@ public class MainActivity extends FrameActivity<ActivityMainBinding> {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void drawerLayoutSwitch(boolean isOpen) {
+		if (isOpen) {
+			bindingView.drawerLayout.openDrawer(Gravity.START);
+		} else {
+			bindingView.drawerLayout.closeDrawer(Gravity.START);
+		}
+	}
+
 	@Override
 	public void onBackPressed() {
 		assert bindingView.drawerLayout != null;
 		if (bindingView.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-			bindingView.drawerLayout.closeDrawer(GravityCompat.START);
+			drawerLayoutSwitch(false);
 		} else {
 			super.onBackPressed();
 		}

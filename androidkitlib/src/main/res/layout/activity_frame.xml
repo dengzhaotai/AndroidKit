@@ -30,9 +30,18 @@
                     style="@style/ToolBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:text="标题居中"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_right"
+                    style="@style/ToolBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:text="居右"
                     android:textStyle="bold"/>
             </android.support.v7.widget.Toolbar>
 
