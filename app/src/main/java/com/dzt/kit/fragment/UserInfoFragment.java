@@ -116,6 +116,28 @@ public class UserInfoFragment extends FragmentBase<FragmentUserInfoBinding>
 
 	}
 
+	@Override
+	public void returnCropRequest(Intent data) {
+		//剪切之后都会返回这里，在这里保存图片与显示图片
+		isSelectImg = true;
+		resultUri = UCrop.getOutput(data);
+		roadImageView(resultUri);
+	}
+
+	@Override
+	public void returnCamera() {
+		isSelectImg = true;
+		JLogKit.getInstance().e("photoSavePath = " + photoSavePath);
+		initUCrop(Uri.fromFile(new File(photoSavePath)));
+	}
+
+	@Override
+	public void returnSelectImage(Intent data) {
+		// 获取相册选择结果（保存路径）
+		Uri selectedImage = data.getData();
+		initUCrop(selectedImage);
+	}
+
 	private void initPath() {
 		//路径规则：SD卡路径（内部存储）/packageName/no_upload_media/yyyyMMddHHmmss.jpg
 		photoPath = JFileKit.getDiskCacheDir(context) + "/upload_media";
@@ -175,24 +197,7 @@ public class UserInfoFragment extends FragmentBase<FragmentUserInfoBinding>
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
-			if (requestCode == CALL_CAMERA) {
-				if (data == null) {
-					isSelectImg = true;
-					JLogKit.getInstance().e("photoSavePath = " + photoSavePath);
-					initUCrop(Uri.fromFile(new File(photoSavePath)));
-				}
-			} else if (requestCode == SELECTIMAGE_ONE) {
-				if (data != null) {
-					// 获取相册选择结果（保存路径）
-					Uri selectedImage = data.getData();
-					initUCrop(selectedImage);
-				}
-			} else if (requestCode == UCrop.REQUEST_CROP) {
-				//剪切之后都会返回这里，在这里保存图片与显示图片
-				isSelectImg = true;
-				resultUri = UCrop.getOutput(data);
-				roadImageView(resultUri);
-			}
+			presenter.onResult(requestCode, data);
 		}
 	}
 

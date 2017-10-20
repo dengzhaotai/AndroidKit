@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.dzt.androidkit.activity.FrameActivity;
 import com.dzt.androidkit.utils.JActivityKit;
-import com.dzt.androidkit.utils.JLogKit;
 import com.dzt.kit.R;
 import com.dzt.kit.databinding.ActivityUserInfoBinding;
 import com.dzt.kit.fragment.UserInfoFragment;
@@ -19,7 +18,6 @@ import com.yalantis.ucrop.UCrop;
 public class UserInfoActivity extends FrameActivity<ActivityUserInfoBinding>{
 
 	private UserInfoPresenter userInfoPresenter;
-	private UserInfoFragment userInfoFragment;
 
 	@Override
 	protected int getLayoutId() {
@@ -30,7 +28,7 @@ public class UserInfoActivity extends FrameActivity<ActivityUserInfoBinding>{
 	protected void initWidgets() {
 		showContentView();
 		setTitle("个人信息");
-		userInfoFragment = new UserInfoFragment();
+		UserInfoFragment userInfoFragment = new UserInfoFragment();
 		JActivityKit.addFragmentToActivity(getSupportFragmentManager(),
 				userInfoFragment, R.id.fragment_container);
 		userInfoPresenter = new UserInfoPresenter(context, userInfoFragment);
@@ -41,7 +39,7 @@ public class UserInfoActivity extends FrameActivity<ActivityUserInfoBinding>{
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode == UCrop.REQUEST_CROP) {
-				userInfoFragment.onActivityResult(requestCode, resultCode, data);
+				userInfoPresenter.setCropRequest(data);
 			}
 		}
 	}
