@@ -89,7 +89,6 @@ public class UserInfoFragment extends FragmentBase<FragmentUserInfoBinding>
 		});
 		initPath();
 		initPopupWindow();
-		roadImageView(resultUri);
 	}
 
 	@Override
@@ -104,6 +103,7 @@ public class UserInfoFragment extends FragmentBase<FragmentUserInfoBinding>
 		} else {
 			resultUri = Uri.fromFile(new File(path));
 		}
+		roadImageView(resultUri);
 	}
 
 	@Override
