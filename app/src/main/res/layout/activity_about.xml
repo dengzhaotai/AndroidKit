@@ -4,10 +4,34 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".activity.AboutActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <data>
 
-    </android.support.constraint.ConstraintLayout>
+        <variable
+            name="resId"
+            type="int"/>
+
+        <variable
+            name="menu"
+            type="com.dzt.kit.model.MenuItem"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:src="@{resId}"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@{menu.title}"/>
+    </LinearLayout>
 </layout>
 
