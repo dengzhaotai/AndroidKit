@@ -11,13 +11,13 @@ import java.util.List;
  * Created by M02323 on 2017/10/17.
  */
 
-public interface DrawerContract {
+public interface UserInfoContract {
 
 	interface View extends BaseView<Presenter> {
-		void showMenu(List<MenuItem> list);
+		void showPopupWindow();
 	}
 
 	interface Presenter extends BasePresenter {
-		void loadMenu();
+		void initPopupWindow();
 	}
 }

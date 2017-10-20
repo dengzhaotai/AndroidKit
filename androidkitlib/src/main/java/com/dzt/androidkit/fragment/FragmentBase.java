@@ -186,6 +186,7 @@ public abstract class FragmentBase<SV extends ViewDataBinding> extends Fragment 
 	 * 加载完成的状态
 	 */
 	protected void showContentView() {
+		JLogKit.getInstance().i("fragment showContentView");
 		if (mLlProgressBar.getVisibility() != View.GONE) {
 			mLlProgressBar.setVisibility(View.GONE);
 		}
