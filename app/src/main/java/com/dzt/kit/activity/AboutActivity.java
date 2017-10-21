@@ -23,7 +23,7 @@ public class AboutActivity extends FrameActivity<ActivityAboutBinding> {
 		setTitle("关于");
 		//Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 		bindingView.setMenu(new MenuItem(R.mipmap.ic_launcher, "图标"));
-		bindingView.setResId(R.mipmap.ic_launcher);
+		bindingView.setResId(R.drawable.selector_round_btn_red);
 	}
 
 	@Override
